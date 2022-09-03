@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.kynon.divonix.commands.Plugins;
 import net.kynon.divonix.config.ConfigFile;
 import net.kynon.divonix.plugins.DivonixPlugin;
 import net.kynon.divonix.plugins.PluginLoader;
@@ -41,7 +42,7 @@ public class Main {
             jdaBuilder.setMemberCachePolicy(MemberCachePolicy.ALL);
             jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
             jdaBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
-            jdaBuilder.addEventListeners();
+            jdaBuilder.addEventListeners(new Plugins());
             jda = jdaBuilder.build();
 
             jda.upsertCommand("plugins", "Display a list of enabled Divonix plugins").queue();
