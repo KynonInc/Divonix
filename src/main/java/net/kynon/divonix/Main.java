@@ -3,6 +3,7 @@ package net.kynon.divonix;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
+import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
@@ -33,7 +34,7 @@ public class Main {
             ConfigFile.loadConfig();
 
             Yaml yaml = new Yaml();
-            Map<String, Object> data = yaml.load(new FileInputStream("config.yml"));
+            Map<String, Object> data = yaml.load(new FileInputStream("divonix_config.yml"));
             JDABuilder jdaBuilder = JDABuilder.createDefault(data.get("bot-token").toString());
             jdaBuilder.setStatus(OnlineStatus.valueOf(data.get("bot-status").toString()));
             jdaBuilder.setChunkingFilter(ChunkingFilter.ALL);
@@ -42,6 +43,8 @@ public class Main {
             jdaBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
             jdaBuilder.addEventListeners();
             jda = jdaBuilder.build();
+
+            jda.upsertCommand("plugins", "Display a list of enabled Divonix plugins").queue();
 
             System.out.println("\n\n\n\n\n\n\n");
             System.out.println("" +

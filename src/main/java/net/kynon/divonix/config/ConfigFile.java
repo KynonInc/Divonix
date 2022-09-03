@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 public class ConfigFile {
 
     public static void loadConfig() throws FileNotFoundException {
-        String filename = "config.yml";
+        String filename = "divonix_config.yml";
         ClassLoader classLoader = Main.class.getClassLoader();
 
         try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
