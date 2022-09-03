@@ -1,0 +1,12 @@
+# Welcome to the Divonix config
+# You can change anything to your liking here
+# Please visit https://github.com/KynonInc/Divonix/wiki for documentation on the Divonix bot core
+
+#============================== GENERAL
+
+# You need to create a Discord bot through Discord Developer Portal
+# (More on this is on the GitHub documentation)
+bot-token: your-discord-bot's-token-here
+
+# Bot's status (ONLINE, IDLE, DO_NOT_DISTURB, INVISIBLE)
+bot-status: ONLINE

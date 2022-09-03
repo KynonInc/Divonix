@@ -27,6 +27,8 @@ public class Plugins extends ListenerAdapter {
             else {
                 eb.setDescription(plugins);
             }
+
+            event.replyEmbeds(eb.build()).setEphemeral(true).queue();
         }
     }
 }
