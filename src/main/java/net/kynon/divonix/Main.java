@@ -7,11 +7,14 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
 import net.kynon.divonix.config.ConfigFile;
+import net.kynon.divonix.plugins.DivonixPlugin;
+import net.kynon.divonix.plugins.PluginLoader;
 import org.yaml.snakeyaml.Yaml;
 
 import javax.security.auth.login.LoginException;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -20,9 +23,38 @@ public class Main {
 
     public static JDA jda;
 
+    public static List<DivonixPlugin> plugins = new ArrayList<>();
+
     public static void main(String[] args) {
 
         try {
+            for (File f : new File("plugins").listFiles()) {
+                if(f.isDirectory()) {
+                    continue;
+                }
+
+                if(!f.getName().endsWith(".jar")) {
+                    continue;
+                }
+
+                DivonixPlugin p = null;
+
+                try {
+                    p = PluginLoader.loadPlugin(f);
+                } catch (Exception e) {
+                    System.out.println("[!] Failed to load plugin!");
+
+                    e.printStackTrace();
+                }
+
+                Main.plugins.add(p);
+            }
+
+            for (DivonixPlugin p : plugins) {
+                p.onEnable();
+                System.out.println("Plugin " + p.getProperty().getName() + " has been enabled (" + p.getProperty().getVersion() + ")");
+            }
+
             ConfigFile.loadConfig();
 
             Yaml yaml = new Yaml();
