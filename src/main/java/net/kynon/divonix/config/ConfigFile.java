@@ -15,10 +15,10 @@ public class ConfigFile {
         try (InputStream inputStream = classLoader.getResourceAsStream(filename)) {
             String result = IOUtils.toString(inputStream, StandardCharsets.UTF_8);
 
-            File file = new File("Divonix/" + filename);
+            File file = new File(filename);
             if (!file.exists()) {
                 file.createNewFile();
-                BufferedWriter bw = new BufferedWriter(new FileWriter("Divonix/" + filename));
+                BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
                 bw.write(result);
                 bw.close();
             }

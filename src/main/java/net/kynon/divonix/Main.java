@@ -27,7 +27,34 @@ public class Main {
 
     public static void main(String[] args) {
 
+        new File("plugins").mkdirs();
+
         try {
+            ConfigFile.loadConfig();
+
+            Yaml yaml = new Yaml();
+            Map<String, Object> data = yaml.load(new FileInputStream("config.yml"));
+            JDABuilder jdaBuilder = JDABuilder.createDefault(data.get("bot-token").toString());
+            jdaBuilder.setStatus(OnlineStatus.valueOf(data.get("bot-status").toString()));
+            jdaBuilder.setChunkingFilter(ChunkingFilter.ALL);
+            jdaBuilder.setMemberCachePolicy(MemberCachePolicy.ALL);
+            jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
+            jdaBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
+            jdaBuilder.addEventListeners();
+            jda = jdaBuilder.build();
+
+            System.out.println("\n\n\n\n\n\n\n");
+            System.out.println("" +
+                    "           ██████╗░██╗██╗░░░██╗░█████╗░███╗░░██╗██╗██╗░░██╗\n" +
+                    "           ██╔══██╗██║██║░░░██║██╔══██╗████╗░██║██║╚██╗██╔╝\n" +
+                    "           ██║░░██║██║╚██╗░██╔╝██║░░██║██╔██╗██║██║░╚███╔╝░\n" +
+                    "           ██║░░██║██║░╚████╔╝░██║░░██║██║╚████║██║░██╔██╗░\n" +
+                    "           ██████╔╝██║░░╚██╔╝░░╚█████╔╝██║░╚███║██║██╔╝╚██╗\n" +
+                    "           ╚═════╝░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝░░╚═╝\n\n" +
+                    "                            version: v" + version + "\n\n\n" +
+                    "                  the bot has successfully started");
+            System.out.println("\n\n\n\n\n\n\n");
+
             for (File f : new File("plugins").listFiles()) {
                 if(f.isDirectory()) {
                     continue;
@@ -54,31 +81,6 @@ public class Main {
                 p.onEnable();
                 System.out.println("Plugin " + p.getProperty().getName() + " has been enabled (" + p.getProperty().getVersion() + ")");
             }
-
-            ConfigFile.loadConfig();
-
-            Yaml yaml = new Yaml();
-            Map<String, Object> data = yaml.load(new FileInputStream("Divonix/config.yml"));
-            JDABuilder jdaBuilder = JDABuilder.createDefault(data.get("bot-token").toString());
-            jdaBuilder.setStatus(OnlineStatus.valueOf(data.get("bot-status").toString()));
-            jdaBuilder.setChunkingFilter(ChunkingFilter.ALL);
-            jdaBuilder.setMemberCachePolicy(MemberCachePolicy.ALL);
-            jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
-            jdaBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
-            jdaBuilder.addEventListeners();
-            jda = jdaBuilder.build();
-
-            System.out.println("\n\n\n\n\n\n\n");
-            System.out.println("" +
-                    "           ██████╗░██╗██╗░░░██╗░█████╗░███╗░░██╗██╗██╗░░██╗\n" +
-                    "           ██╔══██╗██║██║░░░██║██╔══██╗████╗░██║██║╚██╗██╔╝\n" +
-                    "           ██║░░██║██║╚██╗░██╔╝██║░░██║██╔██╗██║██║░╚███╔╝░\n" +
-                    "           ██║░░██║██║░╚████╔╝░██║░░██║██║╚████║██║░██╔██╗░\n" +
-                    "           ██████╔╝██║░░╚██╔╝░░╚█████╔╝██║░╚███║██║██╔╝╚██╗\n" +
-                    "           ╚═════╝░╚═╝░░░╚═╝░░░░╚════╝░╚═╝░░╚══╝╚═╝╚═╝░░╚═╝\n\n" +
-                    "                            version: v" + version + "\n\n\n" +
-                    "                  the bot has successfully started");
-            System.out.println("\n\n\n\n\n\n\n");
 
         } catch (LoginException | IOException e) {
             e.printStackTrace();

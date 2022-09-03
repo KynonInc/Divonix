@@ -1,0 +1,5 @@
+net\kynon\divonix\plugins\PluginProperty.class
+net\kynon\divonix\plugins\DivonixPlugin.class
+net\kynon\divonix\plugins\PluginLoader.class
+net\kynon\divonix\Main.class
+net\kynon\divonix\config\ConfigFile.class

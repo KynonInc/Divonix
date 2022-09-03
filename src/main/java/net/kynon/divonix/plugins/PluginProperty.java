@@ -5,9 +5,9 @@ public class PluginProperty {
     private String main;
     private String name;
     private String description;
-    private double version;
+    private String version;
 
-    public PluginProperty(String main, String name, String description, double version) {
+    public PluginProperty(String main, String name, String description, String version) {
         this.main = main;
 
         this.name = name;
@@ -39,11 +39,11 @@ public class PluginProperty {
         this.description = description;
     }
 
-    public double getVersion() {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(double version) {
+    public void setVersion(String version) {
         this.version = version;
     }
 }

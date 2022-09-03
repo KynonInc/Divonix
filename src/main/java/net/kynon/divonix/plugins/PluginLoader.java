@@ -27,7 +27,7 @@ public class PluginLoader {
         String main = property.getProperty("main");
         String name = property.getProperty("name");
         String description = property.getProperty("description");
-        double version = Double.parseDouble(property.getProperty("version"));
+        String version = property.getProperty("version");
 
         return new PluginProperty(main, name, description, version);
     }
