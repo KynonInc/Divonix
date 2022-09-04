@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.ChunkingFilter;
 import net.dv8tion.jda.api.utils.MemberCachePolicy;
+import net.kynon.divonix.commands.Ping;
 import net.kynon.divonix.commands.Plugins;
 import net.kynon.divonix.config.ConfigFile;
 import net.kynon.divonix.plugins.DivonixPlugin;
@@ -21,7 +22,7 @@ import java.util.Map;
 
 public class Main {
 
-    public static String version = "1.0.0";
+    public static String version = "1.0.2";
 
     public static JDA jda;
 
@@ -42,10 +43,11 @@ public class Main {
             jdaBuilder.setMemberCachePolicy(MemberCachePolicy.ALL);
             jdaBuilder.enableIntents(GatewayIntent.GUILD_MEMBERS);
             jdaBuilder.enableIntents(GatewayIntent.GUILD_MESSAGES);
-            jdaBuilder.addEventListeners(new Plugins());
+            jdaBuilder.addEventListeners(new Plugins(), new Ping());
             jda = jdaBuilder.build();
 
             jda.upsertCommand("plugins", "Display a list of enabled Divonix plugins").queue();
+            jda.upsertCommand("ping", "Check Divonix latency (ms)").queue();
 
             System.out.println("\n\n\n\n\n\n\n");
             System.out.println("" +

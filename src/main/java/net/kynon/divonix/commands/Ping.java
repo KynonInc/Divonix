@@ -5,31 +5,23 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.kynon.divonix.Main;
-import net.kynon.divonix.plugins.DivonixPlugin;
 
 import java.awt.*;
 
-public class Plugins extends ListenerAdapter {
+public class Ping extends ListenerAdapter {
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
         Member m = event.getMember();
 
-        if (event.getName().equals("plugins")) {
+        if (event.getName().equals("ping")) {
             EmbedBuilder eb = new EmbedBuilder();
-            eb.setTitle("All plugins used");
+            eb.setTitle("Bot's ping");
             eb.setColor(Color.WHITE);
 
-            String plugins = "";
-            for (DivonixPlugin plugin : Main.plugins) {
-                plugins+=plugin.getProperty().getName() + "`(v" + plugin.getProperty().getVersion() + ")`" + "\n";
-            }
+            long ping = Main.jda.getGatewayPing();
 
-            if (plugins.equals(""))
-                eb.setDescription("There are no plugins added");
-            else {
-                eb.setDescription(plugins);
-            }
+            eb.setDescription("Latency: `" + ping + "ms`");
 
             event.replyEmbeds(eb.build()).setEphemeral(true).queue();
         }
